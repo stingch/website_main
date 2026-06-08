@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+
+{% block title %}AI Image Generator{% endblock %}
+
+{% block main %}
+<div class="container py-5 mt-5">
+    <h2 class="section-title">AI Image Generator</h2>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card card-morandi p-4 border-0">
+                <form action="{{ url_for('image_gen') }}" method="POST" onsubmit="showLoading()">
+                    <div class="mb-4">
+                        <label for="prompt" class="form-label fw-semibold" style="color: var(--text-primary);">圖片描述 (Prompt)：</label>
+                        <input type="text" class="form-control border-0 p-3" style="background-color: var(--bg-primary); color: var(--text-primary); border-radius: 6px;" id="prompt" name="prompt" placeholder="例如：A cute cat in Morandi color palette, digital art" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="size" class="form-label fw-semibold" style="color: var(--text-primary);">選擇圖片尺寸：</label>
+                        <select class="form-select border-0 p-3" style="background-color: var(--bg-primary); color: var(--text-primary); border-radius: 6px;" id="size" name="size" required>
+                            <option value="1024x1024">1024x1024</option>
+                        </select>
+                    </div>
+                    <button id="generateBtn" type="submit" class="btn btn-morandi">開始生成</button>
+                    
+                    <div id="loadingBox" class="mt-4 text-center" style="display: none;">
+                        <div class="spinner-border" style="color: var(--accent);" role="status"></div>
+                        <p class="mt-3 text-muted">圖片正在生成中，請稍候 10~20 秒...</p>
+                    </div>
+                </form>
+            </div>
+            
+            {% if imgUrl %}
+            <div class="card card-morandi p-4 mt-4 border-0 text-center">
+                <h5 class="fw-bold" style="color: var(--text-primary);">生成結果：</h5>
+                <p class="text-secondary">「{{ prompt }}」</p>
+                <img src="{{ imgUrl }}" class="img-fluid rounded mx-auto d-block border mt-3" alt="Generated Image" style="max-height: 500px;">
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<script>
+    function showLoading() {
+        document.getElementById("generateBtn").disabled = true;
+        document.getElementById("generateBtn").innerText = "生成中...";
+        document.getElementById("loadingBox").style.display = "block";
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block title %}AI Assistant{% endblock %}
+
+{% block main %}
+<div class="container py-5 mt-5">
+    <h2 class="section-title">AI Chat Assistant</h2>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card card-morandi p-4 border-0">
+                <form action="{{ url_for('chat') }}" method="POST">
+                    <div class="mb-4">
+                        <label for="prompt" class="form-label fw-semibold" style="color: var(--text-primary);">向 AI 助理提問：</label>
+                        <textarea class="form-control border-0 p-3" style="background-color: var(--bg-primary); color: var(--text-primary); border-radius: 6px;" id="prompt" name="prompt" rows="4" placeholder="請輸入您想詢問 AI 的內容..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-morandi">送出提問</button>
+                </form>
+            </div>
+            
+            {% if response %}
+            <div class="card card-morandi p-4 mt-4 border-0" style="background-color: var(--bg-secondary);">
+                <h5 class="fw-bold" style="color: var(--text-primary);">AI 助理回覆：</h5>
+                <p class="m-0 mt-3" style="white-space: pre-wrap; color: var(--text-primary); line-height: 1.8;">{{ response }}</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
