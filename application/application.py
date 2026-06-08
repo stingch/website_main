@@ -83,3 +83,32 @@ def result():
     """Renders the 'Result' page of the website."""
 
     return render_template("result.html")
+
+# ==========================================
+# 新增的 AI 應用路由
+# ==========================================
+
+@app.route("/chat", methods=["GET", "POST"])
+def chat():
+    """AI 文字助理路由"""
+    response_text = None
+    if request.method == "POST":
+        prompt = request.form.get("prompt")
+        if prompt:
+            response_text = ask_ai(prompt)
+            
+    return render_template("chat.html", response=response_text)
+
+
+@app.route("/image_gen", methods=["GET", "POST"])
+def image_gen():
+    """AI 圖片生成路由"""
+    img_url = None
+    prompt = None
+    if request.method == "POST":
+        prompt = request.form.get("prompt")
+        size = request.form.get("size")
+        if prompt and size:
+            img_url = generateImg(prompt, size)
+            
+    return render_template("image_generator.html", imgUrl=img_url, prompt=prompt)

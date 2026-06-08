@@ -1,76 +1,33 @@
-<!-- The 'Contact' page -->
-
 {% extends "layout.html" %}
 
-{% block head %}
-    <!-- Inherit from 'layout.html' -->
-    {{ super() }}
-{% endblock %}
-
-{% block title %}
-    Contact
-{% endblock %}
+{% block title %}聯絡通訊{% endblock %}
 
 {% block main %}
-    <!-- Background -->
-    <img src="../static/images/trianglify_background.png" class="background position-fixed w-100 h-100 top-0 start-0" loading="lazy">
-    <!-- End of Background -->
-    <!-- Main Content -->
-    <div class="container contact mb-5 pb-5">
-        <!-- Title -->
-        <div class="row mb-3">
-            <div class="col-md-12 text-center">
-                <h1 class="page-title">CONTACT ME</h1>
+<div class="container py-5 mt-5">
+    <h2 class="section-title">與我聯絡</h2>
+    <div class="row justify-content-center g-4 mt-2">
+        
+        <!-- Email Card -->
+        <div class="col-md-5">
+            <div class="card card-morandi p-4 border-0 h-100 d-flex flex-column justify-content-center">
+                <h5 class="fw-bold mb-4" style="border-left: 4px solid var(--accent); padding-left: 12px; color: var(--text-primary);">聯絡方式</h5>
+                <p class="mb-3">
+                    <strong>Email：</strong> 
+                    <a href="mailto:F114152121@nkust.edu.tw" class="text-decoration-underline" style="color: var(--accent);">F114152121@nkust.edu.tw</a>
+                </p>
+                <p class="m-0"><strong>Location：</strong> 台灣, 高雄</p>
             </div>
         </div>
-        <!-- End of Title -->
-        <!-- Contact Form -->
-        <div class="card contact-card card-design px-5 py-5">
-            <form action="/contact" method="post">
-                <!-- 1st Row -->
-                <div class="row">
-                    <div class="form-group col-md-6 mb-2">
-                        <label for="firstName">&nbsp;&nbsp;&nbsp;<i class="arrow bx bxs-right-arrow"></i>First Name</label>
-                        <input class="form-control" type="text" id="firstName" name="firstName" placeholder="First Name" required>
-                    </div>
-                    <div class="form-group col-md-6 mb-2">
-                        <label for="lastName">&nbsp;&nbsp;&nbsp;<i class="arrow bx bxs-right-arrow"></i>Last Name</label>
-                        <input class="form-control" type="text" id="lastName" name="lastName" placeholder="Last Name" required>
-                    </div>
-                </div>
-                <!-- End of 1st Row-->
-                <!-- 2nd Row -->
-                <div class="form-group mb-2">
-                    <label for="email">&nbsp;&nbsp;&nbsp;<i class="arrow bx bxs-right-arrow"></i>Email Address</label>
-                    <input class="form-control" type="text" id="email" name="email" placeholder="Email Address" required>
-                </div>
-                <!-- End of 2nd Row -->
-                <!-- 3rd Row -->
-                <div class="form-group mb-2">
-                    <label for="subject">&nbsp;&nbsp;&nbsp;<i class="arrow bx bxs-right-arrow"></i>Subject</label>
-                    <select class="form-control" id="subject" name="subject" required>
-                        <option value="" selected disabled>Choose a Subject</option>
-                        <option>Work Opportunity</option>
-                        <option>Request a CV</option>
-                        <option>Request a Phone Number</option>
-                        <option>Other</option>
-                    </select>
-                </div>
-                <!-- End of 3rd Row -->
-                <!-- 4th Row -->
-                <div class="form-group mb-2">
-                    <label for="message">&nbsp;&nbsp;&nbsp;<i class="arrow bx bxs-right-arrow"></i>Message</label>
-                    <textarea class="form-control" id="message" name="message" rows="3" placeholder="Message" required></textarea>
-                </div>
-                <!-- End of 4th Row -->
-                <!-- 5th Row -->
-                <div class="form-group text-center mt-4 mb-2">
-                    <button type="submit" class="btn mx-auto mt-auto w-50">SEND <i class="bx bx-right-arrow-circle px-2"></i></button>
-                </div>
-                <!-- End of 5th Row -->
-            </form>
+
+        <!-- Git Card -->
+        <div class="col-md-5">
+            <div class="card card-morandi p-4 border-0 h-100 d-flex flex-column justify-content-center">
+                <h5 class="fw-bold mb-4" style="border-left: 4px solid var(--accent); padding-left: 12px; color: var(--text-primary);">代碼與倉庫</h5>
+                <p class="text-secondary mb-4" style="font-size: 0.95rem;">歡迎前往我的 GitHub 查看我所有的開放源碼專案與學術研究實驗。</p>
+                <a href="https://github.com/stingch?tab=repositories" target="_blank" class="btn btn-morandi w-100 text-center text-decoration-none">GitHub 儲存庫</a>
+            </div>
         </div>
-        <!-- End of Contact Form -->
+
     </div>
-    <!-- End of Main Content -->
+</div>
 {% endblock %}

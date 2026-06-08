@@ -1,53 +1,19 @@
-<!-- The 'Home' page -->
-
 {% extends "layout.html" %}
 
-{% block head %}
-    <!-- Inherit from 'layout.html' -->
-    {{ super() }}
-    <!-- Typed.js -->
-    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
-    <!-- Particles.js -->
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    <!-- JS -->
-    <script src="../static/js/particles.js" defer></script>
-    <script src="../static/js/typingEffect.js"></script>
-{% endblock %}
-
-{% block title %}
-    Home
-{% endblock %}
+{% block title %}首頁{% endblock %}
 
 {% block main %}
-    <!-- Particles Background -->
-    <div id="particles-js" class="background position-fixed w-100 h-100 top-0 start-0"></div>
-    <!-- End of Particles Background -->
-    <!-- Main Content -->
-    <div class="container description mb-5 pb-5">
-        <!-- Row -->
-        <div class="row align-items-center justify-content-center">
-            <!-- 1st Column -->
-            <div class="col-md-6 order-0 order-md-0 order-1 order-sm-0 text-center text-md-start mb-3 mb-md-0 pb-3">
-                <div class="description-box">
-                    <h2 class="main-text">Hello! <br> I'm <span class="name">Jack Chen</span></h2>
-                    <p class="secondary-text">I am a <span id="typing-text"></span></p>
-                    <div class="d-flex justify-content-center justify-content-sm-start">
-                        <button class="btn d-flex align-items-center justify-content-center" type="button">
-                            <a href="{{ url_for('about') }}">READ MORE <i class="bx bx-right-arrow-circle px-2"></i></a>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <!-- End of 1st Column -->
-            <!-- 2nd Column -->
-            <div class="col-md-6 order-1 order-md-1 order-0 order-sm-1 text-center text-md-end">
-                <div class="card-design description-image d-flex justify-content-center align-items-center overflow-hidden">
-                    <img class="img-fluid w-75 h-75 object-fit-contain" src="../static/images/main_picture.png">
-                </div>
-            </div>
-            <!-- End of 2nd Column -->
+<div class="container py-5 mt-5">
+    <div class="text-center py-5">
+        <div class="avatar-wrapper mx-auto mb-4" style="width: 140px; height: 140px; border-radius: 50%; overflow: hidden; border: 4px solid var(--card-bg); background-color: var(--bg-secondary); box-shadow: 0 4px 20px rgba(0,0,0,0.08);">
+            <img src="{{ url_for('static', filename='images/avatar.png') }}" alt="邱湘婷" class="w-100 h-100 object-fit-cover" onerror="this.src='https://via.placeholder.com/150/E6E4DE/3A403F?text=Sting'">
         </div>
-        <!-- End of Row -->
+        <h1 class="fw-bold display-4 mb-3" style="color: var(--text-primary); letter-spacing: 1px;">邱湘婷</h1>
+        <p class="lead text-muted mx-auto mb-5" style="max-width: 600px; line-height: 1.8;">
+            自學但還沒成材的研究生？<br>
+            在實驗室這個結構性行政黑洞裡，現在是別人口中的<strong>邱助理</strong>。
+        </p>
+        <a href="{{ url_for('about') }}" class="btn btn-morandi">探索我的研究世界</a>
     </div>
-    <!-- End of Main Content -->
+</div>
 {% endblock %}

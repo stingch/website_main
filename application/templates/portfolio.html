@@ -1,67 +1,41 @@
-<!-- The 'Portfolio' page -->
-
 {% extends "layout.html" %}
 
-{% block head %}
-    <!-- Inherit from 'layout.html' -->
-    {{ super() }}
-{% endblock %}
-
-{% block title %}
-    Portfolio
-{% endblock %}
+{% block title %}作品專案{% endblock %}
 
 {% block main %}
-    <!-- Background -->
-    <img src="../static/images/trianglify_background.png" class="background position-fixed w-100 h-100 top-0 start-0" loading="lazy">
-    <!-- End of Background -->
-    <!-- Main Content -->
-    <div class="container portfolio mb-5 pb-5">
-        <!-- Title -->
-        <div class="row mb-3">
-            <div class="col-md-12 text-center">
-                <h1 class="page-title">PORTFOLIO</h1>
-            </div>
-        </div>
-        <!-- End of Title -->
-        <!-- Projects -->
-        <div class="card portfolio-card card-design">
-            <div class="card-body">
-                <div class="row d-flex justify-content-center">
-                    {% for repo in repos %}
-                        {% if loop.index0 % 3 == 0 %}
-                            <!-- Start of New Row -->
-                            <div class="row my-lg-2">
-                        {% endif %}
-                        <!-- Start of New Card -->
-                        <div class="col-md-4 my-md-0 my-2 text-center">
-                            <div class="card inner-card inner-card-design h-100">
-                                <div class="card-header">
-                                    {% for language in repo.languages %}
-                                        <img class="img-fluid" src="{{ language | get_language_image }}" alt="{{ language }}">
-                                    {% endfor %}
-                                </div>
-                                <div class="card-body d-flex flex-column">
-                                    <h5 class="card-title">{{ repo.name }}</h5>
-                                    <p class="card-text">{{ repo.description }}</p>
-                                </div>
-                                <div class="card-footer">
-                                    <button class="btn mt-auto mx-auto w-75">
-                                        <a href="{{ repo.url }}">READ MORE <i class="bx bx-right-arrow-circle px-2"></i></a>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End of Card -->
-                        {% if loop.index0 % 3 == 2 or loop.last %}
-                            </div>
-                            <!-- End of Row -->
-                        {% endif %}
-                    {% endfor %}
+<div class="container py-5 mt-5">
+    <h2 class="section-title">精彩作品</h2>
+    
+    <div class="row g-4 mt-2 justify-content-center">
+        {% if repos %}
+            {% for repo in repos %}
+            <div class="col-md-6 col-lg-4">
+                <div class="card card-morandi p-4 h-100 border-0 d-flex flex-column">
+                    <h5 class="fw-bold text-dark mb-3">{{ repo.name }}</h5>
+                    <p class="text-secondary flex-grow-1" style="font-size: 0.95rem; line-height: 1.6;">
+                        {{ repo.description or "這是一個公開的開發專案，歡迎點擊下方連結前往查看更多細節。" }}
+                    </p>
+                    <div class="mt-3">
+                        {% for lang in repo.languages %}
+                            <span class="badge me-1" style="background-color: var(--accent); color: #fff;">{{ lang }}</span>
+                        {% endfor %}
+                    </div>
+                    <hr class="my-3" style="color: var(--bg-secondary);">
+                    <a href="{{ repo.url }}" target="_blank" class="mt-auto text-decoration-none fw-semibold" style="color: var(--accent); font-size: 0.95rem;">
+                        前往 GitHub 儲存庫 <i class="bx bx-right-arrow-alt align-middle"></i>
+                    </a>
                 </div>
             </div>
-        </div>
-        <!-- End of Projects -->
+            {% endfor %}
+        {% else %}
+            <div class="col-12 text-center py-5">
+                <div class="p-5 border border-dashed rounded" style="background-color: var(--bg-secondary); border-color: var(--text-secondary) !important;">
+                    <div class="spinner-border mb-3" style="color: var(--accent);" role="status"></div>
+                    <p class="text-secondary m-0">努力產出中 (Researching & Loading...)</p>
+                    <p class="text-muted small mt-2">請確認是否在本地端或 Render 設定了正確的 GITHUB_ACCESS 環境變數以讀取 GitHub Repositories。</p>
+                </div>
+            </div>
+        {% endif %}
     </div>
-    <!-- End of Main Content -->
+</div>
 {% endblock %}

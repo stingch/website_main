@@ -71,11 +71,13 @@ def get_skills(file_path:str) -> tuple:
 def get_repositories() -> list:
     """Returns a list of dictionaries which contains information about each public repository on my GitHub profile."""
 
-    github_token = os.environ["GITHUB_ACCESS"]
+    github_token = os.getenv("GITHUB_ACCESS")
 
-    url = "https://api.github.com/users/geogeolo/repos"
+    url = "https://api.github.com/users/stingch/repos"
     params = {"per_page": 1000}
-    headers = {"Authorization": f"token {github_token}"}
+    headers = {}
+    if github_token:
+        headers["Authorization"] = f"token {github_token}"
 
     try:
         response = requests.get(url, params=params, headers=headers)
@@ -96,14 +98,22 @@ def get_repositories() -> list:
                         repo_info["description"] = repo["description"]
                         repo_info["url"] = repo["html_url"]
 
-                        # Get all languages used in the repository
-                        languages = repo["languages_url"]
-                        languages_response = requests.get(languages)
-                        languages_data = languages_response.json()
-                        sorted_languages = sorted(languages_data.items(), key=lambda x: x[1], reverse=True)
-
-                        # Get top three most used languages in repository
-                        top_languages = [lang[0] for lang in sorted_languages[:3]]
+                        try:
+                            # Get all languages used in the repository
+                            languages = repo["languages_url"]
+                            # Use authentication headers to avoid API rate limit
+                            languages_response = requests.get(languages, headers=headers)
+                            languages_data = languages_response.json()
+                            if isinstance(languages_data, dict) and "message" not in languages_data:
+                                sorted_languages = sorted(languages_data.items(), key=lambda x: x[1], reverse=True)
+                                # Get top three most used languages in repository
+                                top_languages = [lang[0] for lang in sorted_languages[:3]]
+                            else:
+                                top_languages = []
+                        except Exception as e:
+                            print(f"Error fetching languages for {repo['name']}: {e}")
+                            top_languages = []
+                            
                         repo_info["languages"] = top_languages
 
                         # Add the repository dictionary to the list of repositories
@@ -112,12 +122,10 @@ def get_repositories() -> list:
             return repo_list
         else:
             print(f"ERROR! {response.status_code} - {response.reason}.")
-    except requests.exceptions.Timeout:
-        print("Request timed out.")
-    except requests.exceptions.TooManyRedirects:
-        print("Too many redirects.")
-    except requests.exceptions.RequestException as error:
+            return []
+    except Exception as error:
         print(f"ERROR! {error}.")
+        return []
 
 
 def get_language_image(language:str) -> str:
@@ -132,3 +140,52 @@ def get_language_image(language:str) -> str:
         for card in data.get("cards", []):
             if card.get("type") == "language" and card.get("title", "").lower() == language.lower():
                 return card.get("image")
+
+# ==========================================
+# OpenAI 整合功能（文字助理與圖片生成）
+# ==========================================
+import os
+from openai import OpenAI
+from dotenv import load_dotenv
+
+# 載入本機 .env 環境變數檔（本機測試用）
+load_dotenv()
+
+def get_openai_client():
+    """惰性初始化 OpenAI 客戶端以避免啟動時因缺少 Key 而崩潰"""
+    return OpenAI()
+
+def ask_ai(prompt):
+    """呼叫 OpenAI GPT-4o-mini 進行對話"""
+    try:
+        client = get_openai_client()
+        response = client.chat.completions.create(
+            messages=[
+                {"role": "user", "content": prompt}
+            ],
+            model="gpt-4o-mini",
+            temperature=0.5,
+        )
+        return response.choices[0].message.content.strip()
+    except Exception as e:
+        print(f"Error calling OpenAI Chat: {e}")
+        return f"文字助手發生錯誤：{e}"
+
+def generateImg(prompt, size):
+    """呼叫 OpenAI DALL-E 3 產生圖片"""
+    try:
+        client = get_openai_client()
+        # 官方標準 API 請使用 model="dall-e-3" 
+        # (如果是學校特定的測試模型，可改回簡報寫的 gpt-image-1)
+        response = client.images.generate(
+            model="dall-e-3", 
+            prompt=prompt,
+            n=1,
+            size=size if size in ["1024x1024"] else "1024x1024",
+            quality="standard"
+        )
+        # 取得圖片的公開 URL
+        return response.data[0].url
+    except Exception as e:
+        print(f"Error calling OpenAI Image: {e}")
+        return None

@@ -1,96 +1,44 @@
-<!-- The 'Skills' page -->
-
 {% extends "layout.html" %}
 
-{% block head %}
-    <!-- Inherit from 'layout.html' -->
-    {{ super() }}
-{% endblock %}
-
-{% block title %}
-    Skills
-{% endblock %}
+{% block title %}技術與研究{% endblock %}
 
 {% block main %}
-    <!-- Background -->
-    <img src="../static/images/trianglify_background.png" class="background position-fixed w-100 h-100 top-0 start-0" loading="lazy">
-    <!-- End of Background -->
-    <!-- Main Content -->
-    <div class="container skills mb-5 pb-5">
-        <!-- Title -->
-        <div class="row mb-3">
-            <div class="col-md-12 text-center">
-                <h1 class="page-title">SKILLS</h1>
+<div class="container py-5 mt-5">
+    <h2 class="section-title">專業技術與研究</h2>
+    
+    <div class="row g-4 mt-2 justify-content-center">
+        <!-- Card 1 -->
+        <div class="col-md-6 col-lg-3">
+            <div class="card card-morandi h-100 p-4 text-center border-0">
+                <div style="font-size: 2.8rem;" class="mb-3">🧠</div>
+                <h5 class="fw-bold mb-3" style="color: var(--text-primary);">AI 與前沿研究</h5>
+                <p class="text-secondary" style="font-size: 0.95rem; line-height: 1.6;">專注於 LLM 本地部屬、RAG（檢索增強生成）系統架構建置，以及軟硬體融合的 Edge AI 應用落地。</p>
             </div>
         </div>
-        <!-- End of Title -->
-        <!-- Cards -->
-        <div class="row">
-            <!-- Languages Card -->
-            <div class="col-md-4 d-flex align-items-stretch">
-                <div class="card languages-card card-design">
-                    <div class="card-body">
-                        <h5 class="card-title text-center mb-4">Languages</h5>
-                        <div class="row">
-                            {% for language in skills[0] %}
-                                <div class="col-md-4 mb-3">
-                                    <div class="card inner-card inner-card-design">
-                                        <img src="{{ language.image }}" class="img-fluid card-img-top mx-auto d-block mt-2">
-                                        <div class="card-body">
-                                            <h5 class="card-title text-center">{{ language.title }}</h5>
-                                        </div>
-                                    </div>
-                                </div>
-                            {% endfor %}
-                        </div>
-                    </div>
-                </div>
+        <!-- Card 2 -->
+        <div class="col-md-6 col-lg-3">
+            <div class="card card-morandi h-100 p-4 text-center border-0">
+                <div style="font-size: 2.8rem;" class="mb-3">⚙️</div>
+                <h5 class="fw-bold mb-3" style="color: var(--text-primary);">韌體與驅動開發</h5>
+                <p class="text-secondary" style="font-size: 0.95rem; line-height: 1.6;">熟練掌握多晶片系統開發，包含 STM32、Infineon PSoC 系列及 Microchip、ESP32、Arduino 系列晶片與驅動，熟悉主流通訊協議。</p>
             </div>
-            <!-- End of Languages Card -->
-            <!-- Frameworks & Libraries Card -->
-            <div class="col-md-4 d-flex align-items-stretch my-3 my-md-0">
-                <div class="card frameworks-card card-design flex-fill">
-                    <div class="card-body">
-                        <h5 class="card-title text-center mb-4">Frameworks & Libraries</h5>
-                        <div class="row">
-                            {% for framework in skills[1] %}
-                                <div class="col-md-4 mb-3">
-                                    <div class="card inner-card inner-card-design">
-                                        <img src="{{ framework.image }}" class="img-fluid card-img-top mx-auto d-block mt-2">
-                                        <div class="card-body">
-                                            <h5 class="card-title text-center">{{ framework.title }}</h5> 
-                                        </div>
-                                    </div>
-                                </div>
-                            {% endfor %}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- End of Frameworks & Libraries Card -->
-            <!-- Other Technologies Card -->
-            <div class="col-md-4 d-flex align-items-stretch">
-                <div class="card technologies-card card-design">
-                    <div class="card-body">
-                        <h5 class="card-title text-center mb-4">Other Technologies</h5>
-                        <div class="row">
-                            {% for technology in skills[2] %}
-                                <div class="col-md-4 mb-3">
-                                    <div class="card inner-card inner-card-design">
-                                        <img src="{{ technology.image }}" class="img-fluid card-img-top mx-auto d-block mt-2">
-                                        <div class="card-body">
-                                            <h5 class="card-title text-center">{{ technology.title }}</h5>
-                                        </div>
-                                    </div>
-                                </div>
-                            {% endfor %}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- End of Other Technologies Card -->
         </div>
-        <!-- End of Cards -->
+        <!-- Card 3 -->
+        <div class="col-md-6 col-lg-3">
+            <div class="card card-morandi h-100 p-4 text-center border-0">
+                <div style="font-size: 2.8rem;" class="mb-3">📱</div>
+                <h5 class="fw-bold mb-3" style="color: var(--text-primary);">軟硬體整合與 App</h5>
+                <p class="text-secondary" style="font-size: 0.95rem; line-height: 1.6;">打破軟硬體邊界，具備將底層硬體訊號與上層端點（如 App、雲端介面）無縫串接的實戰能力。</p>
+            </div>
+        </div>
+        <!-- Card 4 -->
+        <div class="col-md-6 col-lg-3">
+            <div class="card card-morandi h-100 p-4 text-center border-0">
+                <div style="font-size: 2.8rem;" class="mb-3">🛠️</div>
+                <h5 class="fw-bold mb-3" style="color: var(--text-primary);">3DP 快速原型實作</h5>
+                <p class="text-secondary" style="font-size: 0.95rem; line-height: 1.6;">結合 3D 列印技術（3DP），能獨立完成從機構外殼原型、硬體電路到軟體控制的完整閉環驗證。</p>
+            </div>
+        </div>
     </div>
-    <!-- End of Main Content -->
+</div>
 {% endblock %}

@@ -1,34 +1,22 @@
-<!-- The 'Email Response' page -->
-
 {% extends "layout.html" %}
 
-{% block head %}
-    <!-- Inherit form 'layout.html' -->
-    {{ super() }}
-{% endblock %}
-
 {% block title %}
-    Email Response
+    傳送結果
 {% endblock %}
 
 {% block main %}
-    <!-- Background -->
-    <img src="../static/images/trianglify_background.png" class="background position-fixed w-100 h-100 top-0 start-0" loading="lazy">
-    <!-- End of Background -->
-    <!-- Main Content -->
-    <div class="container response mb-5 pb-5">
-        <!-- Title -->
-        <div class="row mb-3">
-            <div class="col-md-12 text-center">
-                <h1 class="page-title">COULD NOT BE SENT</h1>
+    <div class="container response py-5 mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <h2 class="section-title">傳送完成</h2>
+                <div class="card card-morandi message-card text-center p-5 border-0">
+                    <p class="lead" style="color: var(--text-primary);">感謝您嘗試聯絡我！</p>
+                    <p class="text-secondary" style="font-size: 1rem; line-height: 1.6;">本信件系統已發送模擬封包。若需要直接取得聯繫，歡迎點擊下方按鈕或透過電子郵件與我聯絡。</p>
+                    <div class="mt-4">
+                        <a href="{{ url_for('contact') }}" class="btn btn-morandi text-decoration-none">返回聯絡頁面</a>
+                    </div>
+                </div>
             </div>
         </div>
-        <!-- End of Title -->
-        <!-- Message -->
-        <div class="card message-card card-design text-center px-5 py-5">
-            <p>Thanks for trying to reach out!</p>
-            <p>At this moment, this feature is not available, but if you want to contact me you can find me on LinkedIn.</p>
-        </div>
-        <!-- End of Message -->
     </div>
 {% endblock %}
