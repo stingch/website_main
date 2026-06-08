@@ -172,20 +172,18 @@ def ask_ai(prompt):
         return f"文字助手發生錯誤：{e}"
 
 def generateImg(prompt, size):
-    """呼叫 OpenAI DALL-E 3 產生圖片"""
+    """呼叫 OpenAI 產生圖片 (配合學校特定/代理 API 伺服器的 gpt-image-1 模型與 base64 格式)"""
     try:
         client = get_openai_client()
-        # 官方標準 API 請使用 model="dall-e-3" 
-        # (如果是學校特定的測試模型，可改回簡報寫的 gpt-image-1)
         response = client.images.generate(
-            model="dall-e-3", 
+            model="gpt-image-1", 
             prompt=prompt,
             n=1,
-            size=size if size in ["1024x1024"] else "1024x1024",
-            quality="standard"
+            size=size,
+            quality="medium"
         )
-        # 取得圖片的公開 URL
-        return response.data[0].url
+        image_base64 = response.data[0].b64_json
+        return f"data:image/png;base64,{image_base64}"
     except Exception as e:
         print(f"Error calling OpenAI Image: {e}")
         return None
